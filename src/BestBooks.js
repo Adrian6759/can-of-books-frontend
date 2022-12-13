@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-// import Carousel from 'react-bootstrap/Carousel';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -37,7 +36,7 @@ class BestBooks extends React.Component {
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     /* TODO: render all the books in a Carousel */
 
