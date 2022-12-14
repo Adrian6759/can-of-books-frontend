@@ -1,11 +1,15 @@
+import React from 'react';
 import { Component } from "react";
 
-class Profile extends Component {
+class About extends Component {
 
   render() {
-    /* TODO: render information about the developers */
-    return <p>Profile page coming soon</p>
+    
+    return <>
+    <h2>Ashwini and Adrian's Carousel</h2>
+     <p>Two developers navigating their way through Code Fellows. Completing projects one at a time.</p>
+    </>
   }
 };
 
-export default Profile;
+export default About;

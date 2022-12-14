@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Carousel from 'react-bootstrap/Carousel';
+
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -33,34 +35,35 @@ class BestBooks extends React.Component {
     });
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
 
   render() {
-    // console.log(this.state);
-
-    /* TODO: render all the books in a Carousel */
 
     return (
       <>
-      <input onChange={this.handleChange} type="text"/>
-      <button onClick={() => this.fetchBooks(this.state.search)}>Search</button>
-      {this.state.books.map(book => {
-        return(
-          <div>
-            <h3>{book.title}</h3>
-            <p>{book.description}</p>
-            <p>{book.status}</p>
-          </div>
-        )
-      })
-      }
-        {/* <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
+        <input onChange={this.handleChange} type="text" />
+        <button onClick={() => this.fetchBooks(this.state.search)}>Search</button>
+        <div style={{ height: '50%', width: '50%' }}>
+          <Carousel>
+            {this.state.books.map(book => {
+              return (
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="https://via.placeholder.com/100x100"
+                    alt={book.title}
+                  />
+                  <Carousel.Caption>
+                    <h3>{book.title}</h3>
+                    <p>{book.description}</p>
+                    <p>{book.status}</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
 
-        {this.state.books.length ? (
-          <p>Book Carousel coming soon</p>
-        ) : (
-          <h3>No Books Found :(</h3>
-        )} */}
+              )
+            })
+            }
+          </Carousel>
+        </div>
       </>
     )
   }
