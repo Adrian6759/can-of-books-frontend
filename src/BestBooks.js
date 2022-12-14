@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Carousel from 'react-bootstrap/Carousel';
+// import AddBook from './AddBook'
 
 
 class BestBooks extends React.Component {
@@ -8,10 +10,17 @@ class BestBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
-      search: ""
+      search: "",
+      showAddModal: false
     }
   }
+handleDisplayModal = () => {
+this.setState({ showAddModal: true })
+}
 
+hideModal = () => {
+this.setState({ showAddModal: false })
+}
   componentDidMount = () => {
     this.fetchBooks();
   }
@@ -34,7 +43,7 @@ class BestBooks extends React.Component {
       books: response.data,
     });
   }
-
+handleAddBook = () => {}
 
   render() {
 
