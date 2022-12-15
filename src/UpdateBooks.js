@@ -17,10 +17,10 @@ class UpdateBook extends React.Component {
     this.setState({ name: e.target.value });
   }
   handleDescription = e => {
-    this.setState({ age: e.target.value });
+    this.setState({ desciption: e.target.value });
   }
   handleStatus = e => {
-    this.setState({ gender: e.target.value });
+    this.setState({ status: e.target.value });
   }
   handleSubmit = e => {
     e.preventDefault();
