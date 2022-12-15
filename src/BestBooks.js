@@ -93,12 +93,12 @@ class BestBooks extends React.Component {
           handelAddModal={this.handelAddModal} />
 
         <button onClick={this.showModal}>Add a book</button>
-        <div class="carousel slide mx-auto" style={{ height: '50%', width: '50%' }}>
+        <div className="carousel slide mx-auto" style={{ height: '50%', width: '50%' }}>
           {this.state.books.length
             ? <Carousel showbooks={this.state.books.length}>
               {this.state.books.map(book => {
                 return (
-                  <Carousel.Item>
+                  <Carousel.Item key={book._id}>
                     <img
                       className="d-block w-100"
                       src="https://via.placeholder.com/100x100"
