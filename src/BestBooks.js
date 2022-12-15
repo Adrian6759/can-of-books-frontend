@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Carousel from 'react-bootstrap/Carousel';
+import { Carousel, Button } from 'react-bootstrap/';
 import AddBook from './AddBook'
+import UpdateBook from './UpdateBooks'
+
 
 
 class BestBooks extends React.Component {
@@ -11,7 +13,9 @@ class BestBooks extends React.Component {
     this.state = {
       books: [],
       search: "",
-      showAddModal: false
+      showAddModal: false,
+      selectedBook: null,
+      showUpdateModal: false
     }
   }
   showModal = () => {
@@ -22,15 +26,36 @@ class BestBooks extends React.Component {
     this.setState({ showAddModal: false })
   }
 
-  handelAddModal = async (book) => {
+  hideUpdateModal = () => this.setState({showUpdateModal:false})
 
-    const addResult = await axios.post(process.env.REACT_APP_SERVER_URL + '/books', {
+  handelAddModal = async (book) => {
+    console.log('adding book', book);
+    const addResult = await axios.post(process.env.REACT_APP_SERVER_URL + '/books', book)
+    console.log(addResult.data);
+    this.setState({ books: [...this.state.books, addResult.data] })
+  }
+  updateRequest = async (book) => {
+    console.log(book);
+    let response = await axios.put(process.env.REACT_APP_SERVER_URL + `/books/${book._id}`, {
       title: book.title,
       description: book.description,
       status: book.status
-    })
-
-    this.setState({ books: [...this.state.books, addResult.data] })
+    });
+    let updatedBook = response.data;
+    console.log(this.state.books, updatedBook);
+    this.fetchBooks();
+  }
+  deleteBook = async id => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER_URL}/books/${id}`
+      await axios.delete(url)
+      let deletedBooks = this.state.books.filter(book => book._id !== id)
+      this.setState({
+        books: deletedBooks
+      })
+    } catch (err) {
+      console.log('An error has occured ', err)
+    }
   }
   componentDidMount = () => {
     this.fetchBooks();
@@ -51,7 +76,7 @@ class BestBooks extends React.Component {
     let response = await axios(request);
     console.log(response);
     this.setState({
-      books: response.data,
+      books: response.data
     });
   }
   handleAddBook = () => { }
@@ -70,7 +95,7 @@ class BestBooks extends React.Component {
         <button onClick={this.showModal}>Add a book</button>
         <div class="carousel slide mx-auto" style={{ height: '50%', width: '50%' }}>
           {this.state.books.length
-            ? <Carousel showBooks={this.state.books.length}>
+            ? <Carousel showbooks={this.state.books.length}>
               {this.state.books.map(book => {
                 return (
                   <Carousel.Item>
@@ -83,14 +108,30 @@ class BestBooks extends React.Component {
                       <h3>{book.title}</h3>
                       <p>{book.description}</p>
                       <p>{book.status}</p>
+                      <Button variant="danger"
+                        onClick={() => this.deleteBook(book._id)}>
+                        Delete This Book
+                      </Button>
+                      <Button onClick={() => this.setState({ selectedBook: book, showUpdateModal: true })}>Update This Book</Button>
+
                     </Carousel.Caption>
                   </Carousel.Item>
 
-                );
-              })}
+);
+})}
             </Carousel>
-            : <p>There are no books</p>}
-        </div>
+            : <p>There are no books</p>
+          }
+        </div >
+        {this.state.showUpdateModal
+          ? <UpdateBook
+          book={this.state.selectedBook}
+          handleUpdate={this.updateRequest}
+          showModal = {this.state.showUpdateModal}
+          hideUpdateModal ={this.hideUpdateModal}
+          />
+          : null
+        }
       </>
     )
   }

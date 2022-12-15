@@ -15,7 +15,7 @@ export class AddBook extends Component {
   }
 
   handleDescription = (e) => {
-    this.setState({decription:e.target.value})
+    this.setState({description:e.target.value})
   }
 
   handleStatus = (e) => {
@@ -28,12 +28,11 @@ this.props.handelAddModal(this.state);
 this.props.hideModal();
 }
   render() {
-    console.log(this.state);
     return (
       <div>
         <Modal show={this.props.show} onHide={this.props.hideModal}>
           <Modal.Body>
-            <Form onSubmit={this.props.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
               <Form.Group className='mb-3'>
                 <Form.Label>Book Title</Form.Label>
                 <Form.Control
