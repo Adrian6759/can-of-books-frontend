@@ -7,17 +7,17 @@ class UpdateBook extends React.Component {
     this.state = {
       _id: props.book._id,
       title: props.book.title,
-      description: props.book.desciption,
+      description: props.book.description,
       status: props.book.status,
       
     }
   }
 
   handleTitle = e => {
-    this.setState({ name: e.target.value });
+    this.setState({ title: e.target.value });
   }
   handleDescription = e => {
-    this.setState({ desciption: e.target.value });
+    this.setState({ description: e.target.value });
   }
   handleStatus = e => {
     this.setState({ status: e.target.value });
