@@ -17,7 +17,7 @@ class Header extends React.Component {
   
     let request = {
   method: 'GET',
-  url: 'http://localhost:3001/test',
+  url: 'http://localhost:3001/books',
   headers: {
     Authorization: `Bearer ${token}`
   }

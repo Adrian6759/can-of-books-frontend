@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Carousel, Button } from 'react-bootstrap/';
 import AddBook from './AddBook'
+import { withAuth0 } from '@auth0/auth0-react';
 import UpdateBook from './UpdateBooks'
 
 
@@ -65,10 +66,15 @@ class BestBooks extends React.Component {
   }
   fetchBooks = async (bookTitle) => {
     console.log('fetching book');
+    let res = await this.props.auth0.getIdTokenClaims();
+    let token = res._raw;
     console.log(bookTitle);
     let request = {
       method: 'GET',
-      url: `${process.env.REACT_APP_SERVER_URL}/books`
+      url: `${process.env.REACT_APP_SERVER_URL}/books`,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
     if (bookTitle) {
       request.url += `?title=${bookTitle}`
@@ -136,4 +142,4 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);

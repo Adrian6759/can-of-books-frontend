@@ -6,7 +6,8 @@ async function makeAuthenticatedRequest(url, method, data) {
         method: method, 
         data: data,
         headers: {
-            'Authorization': `Bearer ${token}`;
+            Authorization: `Bearer ${token}`;
+            
         }
     }
 }
